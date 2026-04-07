@@ -13,29 +13,37 @@ chmod +x run.sh
 ./run.sh
 ```
 
+
 ----------------------------------------------------------
 
 ##  What happens
 
 * Downloads the Docker image (if needed)
 * Starts the container
-* Opens turtlesim
 
 
 ----------------------------------------------------------
 
-## Run turtleop_key
+## Run turtlesim and teleop_key
 
 ```bash
+ros2 run turtlesim turtlesim_node
 docker ps
 docker exec -it <container_id> bash
 ```
 
 
+```bash (2)
+ros2 run turtlesim turtle_teleop_key
+```
+
+
 ----------------------------------------------------------
+
 
 ##  What happens
 
+* Runs turtlesim_node
 * Opens a new shell inside the same container
 * Runs turtlesim_teleop_key (to control the turtle)
 
