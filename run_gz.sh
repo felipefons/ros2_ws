@@ -34,6 +34,7 @@ docker run -it --rm \
   -e XDG_RUNTIME_DIR=/tmp/runtime-docker \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /dev/shm:/dev/shm \
+  -v ~/ros2_ws:/ros2_ws \
   $IMAGE
 
 # Revoke permission after exit
