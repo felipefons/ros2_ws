@@ -35,15 +35,19 @@ RUN mkdir -p src
 
 # User
 ARG USERNAME=ros
+ARG UID=1000
+ARG GID=1000
 
-RUN id -u $USERNAME &>/dev/null || useradd -ms /bin/bash $USERNAME && \
+RUN groupadd -g $GID $USERNAME || true && \
+    useradd -m -u $UID -g $GID -s /bin/bash $USERNAME && \
     chown -R $USERNAME:$USERNAME /ros2_ws
 
 USER $USERNAME
 ENV USER=$USERNAME
+ENV HOME=/home/$USERNAME
 
 # Auto-source
-RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc && \
-    echo "[ -f /ros2_ws/install/setup.bash ] && source /ros2_ws/install/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc && \
+    echo "[ -f /ros2_ws/install/setup.bash ] && source /ros2_ws/install/setup.bash" >> /etc/bash.bashrc
 
 CMD ["bash"]
