@@ -3,7 +3,7 @@
 IMAGE="fefon934/ros2-jazzy-gz:latest"
 
 # Allow Docker to access display server (X11)
-xhost +local:docker
+xhost +SI:localuser:$(whoami)
 
 # Pull the latest version of the Docker image from the repository
 docker pull $IMAGE
@@ -26,12 +26,14 @@ fi
 docker run -it --rm \
   --net=host \
   --ipc=host \
+  --user $(id -u):$(id -g) \
   $GPU_FLAGS \
   -e DISPLAY=$DISPLAY \
   -e QT_X11_NO_MITSHM=1 \
   -e QT_QPA_PLATFORM=xcb \
   -e NVIDIA_DRIVER_CAPABILITIES=all \
   -e XDG_RUNTIME_DIR=/tmp/runtime-docker \
+  -e HOME=/tmp \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /dev/shm:/dev/shm \
   -v ~/ros2_ws:/ros2_ws \

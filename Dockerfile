@@ -6,7 +6,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     locales \
     build-essential \
@@ -33,20 +32,7 @@ ENV LC_ALL=en_US.UTF-8
 WORKDIR /ros2_ws
 RUN mkdir -p src
 
-# User
-ARG USERNAME=ros
-ARG UID=1000
-ARG GID=1000
-
-RUN groupadd -g $GID $USERNAME || true && \
-    useradd -m -u $UID -g $GID -s /bin/bash $USERNAME && \
-    chown -R $USERNAME:$USERNAME /ros2_ws
-
-USER $USERNAME
-ENV USER=$USERNAME
-ENV HOME=/home/$USERNAME
-
-# Auto-source
+# Auto-source ROS for all shells
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc && \
     echo "[ -f /ros2_ws/install/setup.bash ] && source /ros2_ws/install/setup.bash" >> /etc/bash.bashrc
 

@@ -75,6 +75,8 @@ gz sim shapes.sdf
 ```bash
 colcon build
 source install/setup.bash
+docker ps
+docker exec -it <container_name_or_id> bash
 ros2 run my_py_pkg talker
 ```
 
