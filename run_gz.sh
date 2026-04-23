@@ -26,6 +26,7 @@ fi
 docker run -it --rm \
   --net=host \
   --ipc=host \
+  --user $(id -u):$(id -g) \
   $GPU_FLAGS \
   -e DISPLAY=$DISPLAY \
   -e QT_X11_NO_MITSHM=1 \
