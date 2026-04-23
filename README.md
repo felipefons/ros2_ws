@@ -70,6 +70,35 @@ gz sim shapes.sdf
 
 ----------------------------------------------------------
 
+## OPTIONAL: Build and source workspace (and run talker/listener demo)
+
+```bash
+colcon build
+source install/setup.bash
+ros2 run my_py_pkg talker
+```
+
+```bash (2)
+ros2 run my_py_pkg listener
+```
+
+
+----------------------------------------------------------
+
+
+##  What happens
+* colcon build
+* Compiles/builds all packages in the workspace
+* Generates the build/, install/ and log/ folders
+* Registers executables (ros2 nodes)
+
+* source install/setup.bash
+* Updates environment variables
+* Makes ros2 aware of your packages
+
+
+----------------------------------------------------------
+
 ##  Requirements
 
 * Docker installed
