@@ -31,12 +31,12 @@ Obs.: to run without Gazebo: run.sh
 
 ```bash
 ros2 run turtlesim turtlesim_node
-docker ps
-docker exec -it <container_id> bash
 ```
 
 
 ```bash (2)
+docker ps
+docker exec -it <container_id> bash
 ros2 run turtlesim turtle_teleop_key
 ```
 
@@ -75,12 +75,12 @@ gz sim shapes.sdf
 ```bash
 colcon build
 source install/setup.bash
-docker ps
-docker exec -it <container_name_or_id> bash
 ros2 run my_py_pkg talker
 ```
 
 ```bash (2)
+docker ps
+docker exec -it <container_name_or_id> bash
 ros2 run my_py_pkg listener
 ```
 
