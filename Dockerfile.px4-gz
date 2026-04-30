@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1
+
+FROM px4io/px4-sitl:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Graphics + tools for Gazebo rendering
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    mesa-utils \
+    libgl1 \
+    libegl1 \
+    tmux \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+
+CMD ["bash"]

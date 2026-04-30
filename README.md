@@ -1,10 +1,10 @@
 # ROS2 Jazzy + Gazebo (Docker)
 
-Run ROS2 Jazzy with Gazebo in one command.
+Dockerized ROS2 Jazzy workspace with Gazebo support for simulation and development.
 
-----------------------------------------------------------
+---
 
-## Quick Start
+# Quick Start
 
 ```bash
 git clone https://github.com/felipefons/ros2_ws.git
@@ -13,106 +13,91 @@ chmod +x run_gz.sh
 ./run_gz.sh
 ```
 
-Obs.: to run without Gazebo: run.sh
+This will:
+- Pull the Docker image (if not available)
+- Start a ROS2 Jazzy container
+- Enable GUI support (Gazebo / RViz)
 
-----------------------------------------------------------
+---
 
+# System Overview
 
+Inside the container:
 
-##  What happens
+- ROS2 Jazzy
+- Gazebo simulation tools
+- Colcon workspace at `/ros2_ws`
 
-* Downloads the Docker image (if needed)
-* Starts the container
+---
 
+# ROS2 Example (Turtlesim)
 
-----------------------------------------------------------
-
-## OPTIONAL: Run turtlesim and teleop_key
+Inside the container:
 
 ```bash
 ros2 run turtlesim turtlesim_node
 ```
 
+Open a second terminal:
 
-```bash (2)
+```bash
 docker ps
 docker exec -it <container_id> bash
+```
+
+Run teleoperation:
+
+```bash
 ros2 run turtlesim turtle_teleop_key
 ```
 
+---
 
-----------------------------------------------------------
+# Gazebo Example
 
-
-##  What happens
-
-* Runs turtlesim_node
-* Opens a new shell inside the same container
-* Runs turtlesim_teleop_key (to control the turtle)
-
-
-----------------------------------------------------------
-
-## OPTIONAL: Run Gazebo demo
+Run a simple simulation:
 
 ```bash
 gz sim shapes.sdf
 ```
 
+---
 
-----------------------------------------------------------
+# Build Workspace
 
-
-##  What happens
-
-* Runs a Gazebo demo with simple 3D shapes in an empty world
-
-
-----------------------------------------------------------
-
-## OPTIONAL: Build and source workspace (and run talker/listener demo)
+Inside the container:
 
 ```bash
 colcon build
 source install/setup.bash
-ros2 run my_py_pkg talker
 ```
 
-```bash (2)
-docker ps
-docker exec -it <container_name_or_id> bash
+Run example nodes:
+
+```bash
+ros2 run my_py_pkg talker
 ros2 run my_py_pkg listener
 ```
 
+---
 
-----------------------------------------------------------
+# GUI Setup (Host Machine)
 
-
-##  What happens
-* colcon build
-* Compiles/builds all packages in the workspace
-* Generates the build/, install/ and log/ folders
-* Registers executables (ros2 nodes)
-
-* source install/setup.bash
-* Updates environment variables
-* Makes ros2 aware of your packages
-
-
-----------------------------------------------------------
-
-##  Requirements
-
-* Docker installed
-* Linux with GUI
-
-
-----------------------------------------------------------
-
-##  If it doesn’t work
-
-Run this once:
+Enable Docker GUI access (run once per session):
 
 ```bash
 xhost +local:docker
 ```
+
+---
+
+# Project Structure
+
+```
+ros2_ws/
+├── src/              # ROS2 packages
+├── run_gz.sh         # Docker launcher script
+├── Docker image      # ROS2 Jazzy + Gazebo environment
+```
+
+---
